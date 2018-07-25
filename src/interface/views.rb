@@ -18,6 +18,10 @@ class View
     gets.chomp
   end
 
+  def cache_summary(parser_instance)
+    puts "#{parser_instance.parsed_objects.size.to_s} objects in cache"
+  end
+
   private
   def write_menu(menu)
     menu.keys.sort.each {|k| puts "(#{k}) #{menu[k][:name]}"}

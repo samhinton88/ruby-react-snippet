@@ -1,6 +1,7 @@
 require_relative 'views'
 
 class Interface
+
   attr_reader :view, :config
   attr_writer :mode, :running
   def initialize(config, parser, writer)
@@ -8,18 +9,21 @@ class Interface
     @view       = View.new
     @mode       = ''
     @running    = true
-    @parser     = parser.new
+    @parser     = parser
     @writer     = writer.new
   end
 
   def call
     self.greet_user
-    view.show_menu(config[:main_menu])
+    while @running
+      view.cache_summary(@parser) if @parser.parsed_objects.size > 0
+      view.show_menu(config[:main_menu])
 
-    command = config[:main_menu][view.get_command][:fork]
+      command = config[:main_menu][view.get_command][:fork]
 
-    self.mode = command
-    self.send command
+      self.mode = command
+      self.send command
+    end
 
   end
 
@@ -35,6 +39,10 @@ class Interface
   def create_component
     command = view.ask_input
 
-    parser.create_component(command)
+    @parser.new.parse_component_from(command)
+  end
+
+  def view_cache
+    view.cache_summary(@parser)
   end
 end

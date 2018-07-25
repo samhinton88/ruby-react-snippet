@@ -6,10 +6,13 @@ config = {
   user_name: 'Sam',
   main_menu: {
     '1' => {
-      name:'Create Component', fork: :create_component
+      name:'Create Component (one line mode)', fork: :create_component
     },
     '2' => {
       name: 'Create Types', fork: :create_types
+    },
+    '3' => {
+      name: 'View Cached Objects', fork: :view_cache
     },
     'Q' => { name: 'Quit', fork: :quit}
   }

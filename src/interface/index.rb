@@ -10,13 +10,13 @@ class Interface
     @mode       = ''
     @running    = true
     @parser     = parser
-    @writer     = writer.new
+    @writer     = writer
   end
 
   def call
     self.greet_user
     while @running
-      view.cache_summary(@parser) if @parser.parsed_objects.size > 0
+      view.cache_summary(@parser, 'terse') if @parser.parsed_objects.size > 0
       view.show_menu(config[:main_menu])
 
       command = config[:main_menu][view.get_command][:fork]
@@ -43,6 +43,10 @@ class Interface
   end
 
   def view_cache
-    view.cache_summary(@parser)
+    view.cache_summary(@parser, 'summary')
+  end
+
+  def write_all_objects
+    @writer.new(@parser).call
   end
 end

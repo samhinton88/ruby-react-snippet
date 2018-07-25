@@ -14,6 +14,9 @@ config = {
     '3' => {
       name: 'View Cached Objects', fork: :view_cache
     },
+    '4' => {
+      name: 'Write Cached Objects', fork: :write_all_objects
+    },
     'Q' => { name: 'Quit', fork: :quit}
   }
 }

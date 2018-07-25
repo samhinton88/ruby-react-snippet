@@ -18,8 +18,9 @@ class View
     gets.chomp
   end
 
-  def cache_summary(parser_instance)
-    puts "#{parser_instance.parsed_objects.size.to_s} objects in cache"
+  def cache_summary(parser, option)
+    puts "#{parser.parsed_objects.size.to_s} objects in cache" if option == 'terse'
+    puts "#{parser.parsed_objects.map {|po| po.to_s}.join}" if option == 'summary'
   end
 
   private

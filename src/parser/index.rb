@@ -9,7 +9,11 @@ class ReactReduxParser
   end
 
   def parse_component_from(command)
-    component = ParseComponent.new(command).call
+    dep_map = {
+      redux: { npm_name: 'react-redux', destructure: ['connect'], },
+      react: { npm_name: 'react', destructure: ['Component'], import: 'React',}
+    }
+    component = ParseComponent.new(command, dep_map).call
     @@parsed_objects.push(component)
     puts 'parsed_objects'
     puts @@parsed_objects
